@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperFast - Ride and drive with SuperFast. You set the price!</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --bg-cream: #fbf9eb;
+            --lime-green: #bbf705;
+            --dark-black: #111111;
+            --card-bg: #ffffff;
+            --footer-bg: #e6e4d5;
+            --text-muted: #555555;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-btn: 30px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--dark-black);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* ==========================================================================
+           2. HEADER & BRANDING LOGO INTEGRATION
+           ========================================================================== */
+        header.navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 48px;
+            background-color: var(--bg-cream);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        header.navbar.is-scrolled {
+            background-color: #ffffff;
+            box-shadow: 0 4px 18px rgba(17, 17, 17, 0.08);
+        }
+
+        .brand-logo-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            background: transparent;
+            padding: 4px 8px;
+            border-radius: 12px;
+            transition: opacity 0.2s ease;
+        }
+
+        .brand-logo-container:hover {
+            opacity: 0.9;
+        }
+
+        .sf-logo-sq {
+            width: 42px;
+            height: 42px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+            background-color: transparent;
+        }
+
+        .brand-name-text {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--dark-black);
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-lime {
+            background-color: var(--lime-green);
+            color: var(--dark-black);
+            font-weight: 700;
+            font-size: 15px;
+            padding: 12px 24px;
+            border-radius: var(--radius-btn);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-lime:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 15px rgba(187, 247, 5, 0.4);
+        }
+
+        .lang-selector, .menu-btn {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            padding: 10px 18px;
+            border-radius: var(--radius-btn);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .lang-selector:hover, .menu-btn:hover {
+            background: #f0f0f0;
+        }
+
+        /* ==========================================================================
+           3. HERO SECTION
+           ========================================================================== */
+        .hero {
+            max-width: 1280px;
+            margin: 20px auto 60px;
+            padding: 0 32px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            margin-bottom: 32px;
+        }
+
+        .highlight-box {
+            background-color: var(--lime-green);
+            padding: 0 12px;
+            display: inline-block;
+            border-radius: 6px;
+        }
+
+        .hero-banner-img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        /* ==========================================================================
+           4. FAQ SECTION
+           ========================================================================== */
+        .faq-section {
+            max-width: 1000px;
+            margin: 60px auto 100px;
+            padding: 0 24px;
+            text-align: center;
+        }
+
+        .faq-badge {
+            background: #ededde;
+            color: #444;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 52px;
+            font-weight: 900;
+            margin-bottom: 40px;
+            letter-spacing: -1.5px;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 24px 32px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+        .faq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-question {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .faq-icon-btn {
+            background: var(--lime-green);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, margin-top 0.3s ease;
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            margin-top: 16px;
+        }
+
+        .faq-item.active .faq-icon-btn {
+            transform: rotate(45deg);
+        }
+
+        /* ==========================================================================
+           5. DOWNLOAD SECTION
+           ========================================================================== */
+        .download-section {
+            max-width: 1100px;
+            margin: 60px auto 120px;
+            padding: 0 24px;
+            text-align: center;
+        }
+
+        .app-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .app-info-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .app-info-header .sf-logo-sq {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+        }
+
+        .store-badge-btn {
+            background: #000;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: transform 0.2s ease;
+        }
+        .store-badge-btn:hover {
+            transform: scale(1.03);
+        }
+
+        .anime-wrapper {
+            position: relative;
+            height: 380px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .anime-girl-img {
+            max-height: 100%;
+            width: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+            animation: floatAnime 4s ease-in-out infinite;
+        }
+
+        @keyframes floatAnime {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* ==========================================================================
+           6. FOOTER SECTION
+           ========================================================================== */
+        footer.footer-container {
+            background-color: var(--footer-bg);
+            padding: 80px 48px 40px;
+            color: var(--dark-black);
+        }
+
+        .footer-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr repeat(5, 1fr);
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: #333333;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           7. MODALS (APP MODAL & COUNTRY-LANGUAGE MODAL)
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 26px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #666;
+        }
+
+        .coming-soon-badge {
+            background: var(--lime-green);
+            color: var(--dark-black);
+            font-weight: 800;
+            padding: 6px 18px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 16px;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Country & Language Modal Specific Styles */
+        .lang-modal-box {
+            text-align: left;
+            padding: 32px 36px;
+            max-width: 480px;
+        }
+
+        .lang-modal-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--dark-black);
+        }
+
+        .lang-select-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .field-box {
+            background: #f5f5f7;
+            border-radius: 14px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid transparent;
+        }
+
+        .field-box label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--dark-black);
+            width: 100%;
+        }
+
+        .field-box select {
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark-black);
+            width: 100%;
+            cursor: pointer;
+        }
+
+        @media (max-width: 900px) {
+            .hero, .app-card, .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            header.navbar {
+                padding: 18px 24px;
+            }
+            .hero-title, .section-title {
+                font-size: 38px;
+            }
+            .lang-select-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                margin-top: 8px;
+                gap: 28px;
+            }
+
+            .hero-banner-img {
+                max-height: 420px;
+            }
+
+            .app-card {
+                padding: 36px;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .footer-grid > :first-child {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header.navbar {
+                padding: 14px 16px;
+                gap: 12px;
+            }
+
+            .brand-logo-container {
+                gap: 8px;
+                padding: 3px 0;
+                min-width: 0;
+            }
+
+            .brand-name-text {
+                font-size: 20px;
+                letter-spacing: -0.7px;
+            }
+
+            .sf-logo-sq {
+                width: 36px;
+                height: 36px;
+            }
+
+            .nav-right {
+                gap: 6px;
+                min-width: 0;
+            }
+
+            .nav-right .btn-lime {
+                padding: 10px 12px;
+                font-size: 12px;
+                white-space: nowrap;
+            }
+
+            .lang-selector,
+            .menu-btn {
+                padding: 9px 10px;
+                font-size: 12px;
+                gap: 5px;
+                white-space: nowrap;
+            }
+
+            .menu-btn span {
+                display: none;
+            }
+
+            .hero {
+                margin: 22px auto 52px;
+                padding: 0 16px;
+                gap: 24px;
+            }
+
+            .hero-title {
+                font-size: clamp(34px, 10vw, 46px);
+                letter-spacing: -1.5px;
+                line-height: 1.08;
+                margin-bottom: 24px;
+            }
+
+            .highlight-box {
+                padding: 0 8px;
+            }
+
+            #hero-btn-download {
+                width: 100%;
+                font-size: 16px !important;
+                padding: 14px 20px !important;
+            }
+
+            .hero-banner-img {
+                height: 260px;
+                max-height: none;
+                border-radius: 18px;
+            }
+
+            .faq-section,
+            .download-section {
+                margin-top: 48px;
+                margin-bottom: 72px;
+                padding: 0 16px;
+            }
+
+            .section-title {
+                font-size: clamp(32px, 9vw, 40px);
+                line-height: 1.08;
+                letter-spacing: -1px;
+                margin-bottom: 28px;
+            }
+
+            .faq-item {
+                padding: 18px 16px;
+                border-radius: 16px;
+            }
+
+            .faq-question {
+                max-width: calc(100% - 54px);
+                font-size: 17px;
+                line-height: 1.35;
+                letter-spacing: -0.25px;
+            }
+
+            .faq-icon-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 18px;
+            }
+
+            .faq-answer {
+                font-size: 14px;
+            }
+
+            .app-card {
+                padding: 24px 18px 12px;
+                gap: 18px;
+                border-radius: 18px;
+            }
+
+            .app-info-header {
+                gap: 12px;
+                margin-bottom: 22px;
+            }
+
+            .app-info-header .sf-logo-sq {
+                width: 44px;
+                height: 44px;
+            }
+
+            #dl-playstore-title {
+                font-size: 25px !important;
+            }
+
+            .store-badge-btn {
+                width: 100%;
+                justify-content: center;
+                margin-top: 18px;
+            }
+
+            .anime-wrapper {
+                height: 250px;
+            }
+
+            footer.footer-container {
+                padding: 52px 20px 28px;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 28px 18px;
+                margin-bottom: 36px;
+            }
+
+            .footer-col h4 {
+                font-size: 13px;
+                margin-bottom: 14px;
+            }
+
+            .footer-col ul li {
+                margin-bottom: 9px;
+            }
+
+            .footer-col ul li a {
+                font-size: 12px;
+            }
+
+            .footer-bottom {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 14px;
+                padding-top: 22px;
+                font-size: 11px;
+            }
+
+            .footer-bottom > div:last-child {
+                flex-wrap: wrap;
+                gap: 14px !important;
+            }
+
+            .modal-box {
+                width: calc(100% - 32px);
+                padding: 32px 20px 24px;
+                border-radius: 18px;
+            }
+
+            .modal-box h2 {
+                font-size: 23px !important;
+                line-height: 1.2;
+            }
+
+            .lang-modal-box {
+                padding: 28px 20px 22px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .brand-name-text {
+                display: none;
+            }
+
+            .nav-right .btn-lime {
+                padding-inline: 9px;
+            }
+
+            .lang-selector {
+                padding-inline: 8px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+       HEADER / NAVBAR
+       ========================================================================== -->
+    <header class="navbar">
+        <a class="brand-logo-container" onclick="navigateTo('home')">
+            <img src="c:\Users\Deepak Singh\Pictures\fa58fef2-22c4-4d50-8cd8-80c074fd6d8f.jpg" alt="SuperFast Logo" class="sf-logo-sq">
+            <span class="brand-name-text">SuperFast</span>
+        </a>
+
+        <div class="nav-right">
+            <button class="btn-lime" id="btn-get-app" onclick="triggerDownloadModal('Header Get App')">Get the App</button>
+
+            <!-- Country & Language Selector Button -->
+            <div class="lang-selector" onclick="openLangModal()">
+                <img src="https://flagcdn.com/w20/in.png" alt="India Flag"> 
+                <span id="current-lang-code">En</span>
+            </div>
+
+            <button class="menu-btn" onclick="navigateTo('menu')">
+                <i class="fa-solid fa-bars"></i> <span id="btn-menu-txt">Menu</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN VIEWPORT -->
+    <main id="app-viewport">
+        
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div>
+                <h1 class="hero-title" id="hero-title">Ride and drive with SuperFast. You set the <span class="highlight-box" id="hero-price">price!</span></h1>
+                <button class="btn-lime" id="hero-btn-download" style="font-size: 18px; padding: 16px 36px;" onclick="triggerDownloadModal('Hero Download Button')">Download the app</button>
+            </div>
+            <div>
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/027/160/008/small_2x/generative-ai-motorcycle-rider-on-street-riding-sunset-sky-having-fun-driving-the-empty-highway-on-a-motorcycle-tour-journey-photo.jpg" alt="SuperFast Bike Driver" class="hero-banner-img">
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section class="faq-section">
+            <span class="faq-badge">FAQ</span>
+            <h2 class="section-title" id="faq-main-title">Frequently asked <span class="highlight-box" id="faq-main-hl">questions</span></h2>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-header">
+                    <span class="faq-question" id="faq-q1">How do I download SuperFast app in India?</span>
+                    <div class="faq-icon-btn">+</div>
+                </div>
+                <div class="faq-answer" id="faq-a1">
+                    You can download the SuperFast app directly from Google Play Store or Apple App Store. Simply search for "SuperFast Rides" and click install.
+                </div>
+            </div>
+            
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-header">
+                    <span class="faq-question" id="faq-q2">Is the app free?</span>
+                    <div class="faq-icon-btn">+</div>
+                </div>
+                <div class="faq-answer" id="faq-a2">
+                    Yes, SuperFast is 100% free to download and install for both passengers and drivers.
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-header">
+                    <span class="faq-question" id="faq-q3">Can I use the same app for rides, delivery, and driving?</span>
+                    <div class="faq-icon-btn">+</div>
+                </div>
+                <div class="faq-answer" id="faq-a3">
+                    Absolutely! You can easily switch between passenger mode, delivery requests, and driver mode right inside the single SuperFast application.
+                </div>
+            </div>
+        </section>
+
+        <!-- DOWNLOAD SECTION -->
+        <section class="download-section">
+            <h2 class="section-title" id="dl-section-title" style="margin-bottom: 24px;">Download <span class="highlight-box">SuperFast</span> app!</h2>
+
+            <div class="app-card">
+                <div>
+                    <div class="app-info-header">
+                        <img src="c:\Users\Deepak Singh\Pictures\fa58fef2-22c4-4d50-8cd8-80c074fd6d8f.jpg" alt="SuperFast Logo" class="sf-logo-sq">
+                        <div>
+                            <h3 style="font-size: 22px; font-weight: 800; line-height: 1.2;">SuperFast app</h3>
+                            <p style="color: #666; font-size: 14px;">⭐⭐⭐⭐⭐ 4.8/5</p>
+                        </div>
+                    </div>
+
+                    <h2 id="dl-playstore-title" style="font-size: 32px; font-weight: 900; line-height: 1.1;">Download from Google Play</h2>
+                    
+                    <a class="store-badge-btn" onclick="triggerDownloadModal('Google Play Card')">
+                        <i class="fa-brands fa-google-play" style="font-size: 28px;"></i>
+                        <div style="text-align: left;">
+                            <div id="dl-get-it-on" style="font-size: 10px; text-transform: uppercase;">GET IT ON</div>
+                            <div style="font-size: 16px; font-weight: 700;">Google Play</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="anime-wrapper">
+                    <img src="c:\Users\Deepak Singh\Pictures\208b47b7-42ab-421c-9044-5526c3ca22af.jpg" alt="SuperFast Character" class="anime-girl-img">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==========================================================================
+       FOOTER SECTION
+       ========================================================================== -->
+    <footer class="footer-container">
+        <div class="footer-grid">
+            <div>
+                <a class="brand-logo-container" onclick="navigateTo('home')" style="margin-bottom: 20px;">
+                    <img src="c:\Users\Deepak Singh\Pictures\fa58fef2-22c4-4d50-8cd8-80c074fd6d8f.jpg" alt="SuperFast Logo" class="sf-logo-sq">
+                    <span class="brand-name-text">SuperFast</span>
+                </a>
+            </div>
+
+            <div class="footer-col">
+                <h4 id="f-head-1">Why choose SuperFast</h4>
+                <ul>
+                    <li><a href="#" id="f-l1-1" onclick="navigateTo('fair-services')">Fair services</a></li>
+                    <li><a href="#" id="f-l1-2" onclick="navigateTo('city-rides')">City rides</a></li>
+                    <li><a href="#" id="f-l1-3" onclick="navigateTo('city-to-city')">City to City rides</a></li>
+                    <li><a href="#" id="f-l1-4" onclick="navigateTo('delivery')">Delivery</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 id="f-head-2">Earn with SuperFast</h4>
+                <ul>
+                    <li><a href="#" id="f-l2-1" onclick="navigateTo('earn-with-us')">Earn with us</a></li>
+                    <li><a href="#" id="f-l2-2" onclick="navigateTo('driver-city')">City rides</a></li>
+                    <li><a href="#" id="f-l2-3" onclick="navigateTo('driver-intercity')">City to City rides</a></li>
+                    <li><a href="#" id="f-l2-4" onclick="navigateTo('courier')">Courier</a></li>
+                    <li><a href="#" id="f-l2-5" onclick="navigateTo('freight')">Freight</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 id="f-head-3">Safety</h4>
+                <ul>
+                    <li><a href="#" id="f-l3-1" onclick="navigateTo('safety-pact')">Safety pact</a></li>
+                    <li><a href="#" id="f-l3-2" onclick="navigateTo('passengers-safety')">Safety for passengers</a></li>
+                    <li><a href="#" id="f-l3-3" onclick="navigateTo('drivers-safety')">Safety for drivers</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 id="f-head-4">About us</h4>
+                <ul>
+                    <li><a href="#" id="f-l4-1" onclick="navigateTo('company')">Company</a></li>
+                    <li><a href="#" id="f-l4-2" onclick="navigateTo('careers')">Careers</a></li>
+                    <li><a href="#" id="f-l4-3" onclick="navigateTo('newsroom')">Newsroom</a></li>
+                    <li><a href="#" id="f-l4-4" onclick="navigateTo('blog')">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 id="f-head-5">Support</h4>
+                <ul>
+                    <li><a href="#" id="f-l5-1" onclick="navigateTo('support-passengers')">Passengers</a></li>
+                    <li><a href="#" id="f-l5-2" onclick="navigateTo('support-drivers')">Drivers</a></li>
+                    <li><a href="#" id="f-l5-3" onclick="navigateTo('support-app')">App issues</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>&copy; SUPERFAST INNOVATIONS LTD, 2013–2026</div>
+            <div style="display: flex; gap: 24px;">
+                <a href="#" id="f-legal" onclick="navigateTo('legal')" style="color:#555; text-decoration:none;">Legal Documents</a>
+                <a href="#" id="f-privacy" onclick="navigateTo('privacy')" style="color:#555; text-decoration:none;">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- APP DOWNLOAD MODAL POPUP -->
+    <div class="modal-overlay" id="downloadModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('downloadModal')">&times;</button>
+            <span class="coming-soon-badge" id="m-badge">🚀 COMING SOON</span>
+            <h2 id="m-title" style="font-size: 28px; font-weight: 900; margin-bottom: 12px; color: var(--dark-black);">SuperFast App is launching soon!</h2>
+            <p id="m-desc" style="color: #555; font-size: 15px; margin-bottom: 24px; line-height: 1.6;">
+                We are crafting the ultimate ride-hailing experience with zero commission surge and fair fare negotiation. Get ready to experience ultra-fast rides!
+            </p>
+            <button class="btn-lime" id="m-btn" style="width: 100%; padding: 14px;" onclick="closeModal('downloadModal')">Got It!</button>
+        </div>
+    </div>
+
+    <!-- COUNTRY & LANGUAGE SELECTION MODAL -->
+    <div class="modal-overlay" id="langModal">
+        <div class="modal-box lang-modal-box">
+            <button class="modal-close" onclick="closeModal('langModal')">&times;</button>
+            <h2 class="lang-modal-title" id="lm-heading">Country and language</h2>
+            
+            <div class="lang-select-grid">
+                <!-- Country Field (Permanent India - Disabled) -->
+                <div class="field-box">
+                    <label>
+                        <img src="https://flagcdn.com/w20/in.png" alt="India Flag"> India
+                    </label>
+                    <i class="fa-solid fa-chevron-down" style="color: #888; font-size: 12px;"></i>
+                </div>
+
+                <!-- Language Selection Field -->
+                <div class="field-box">
+                    <select id="langSelect">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-lime" id="lm-save-btn" style="padding: 12px 32px; font-size: 16px;" onclick="saveLanguageSelection()">Save</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT & TRANSLATIONS LOGIC -->
+    <script>
+        // Language Dictionary
+        const translations = {
+            en: {
+                getApp: "Get the App",
+                menu: "Menu",
+                heroTitlePart1: "Ride and drive with SuperFast. You set the ",
+                heroPrice: "price!",
+                heroDownloadBtn: "Download the app",
+                faqMainTitle: "Frequently asked ",
+                faqMainHl: "questions",
+                faqQ1: "How do I download SuperFast app in India?",
+                faqA1: "You can download the SuperFast app directly from Google Play Store or Apple App Store. Simply search for \"SuperFast Rides\" and click install.",
+                faqQ2: "Is the app free?",
+                faqA2: "Yes, SuperFast is 100% free to download and install for both passengers and drivers.",
+                faqQ3: "Can I use the same app for rides, delivery, and driving?",
+                faqA3: "Absolutely! You can easily switch between passenger mode, delivery requests, and driver mode right inside the single SuperFast application.",
+                dlSectionTitle: "Download SuperFast app!",
+                dlPlaystoreTitle: "Download from Google Play",
+                dlGetItOn: "GET IT ON",
+                fHead1: "Why choose SuperFast",
+                fL1_1: "Fair services",
+                fL1_2: "City rides",
+                fL1_3: "City to City rides",
+                fL1_4: "Delivery",
+                fHead2: "Earn with SuperFast",
+                fL2_1: "Earn with us",
+                fL2_2: "City rides",
+                fL2_3: "City to City rides",
+                fL2_4: "Courier",
+                fL2_5: "Freight",
+                fHead3: "Safety",
+                fL3_1: "Safety pact",
+                fL3_2: "Safety for passengers",
+                fL3_3: "Safety for drivers",
+                fHead4: "About us",
+                fL4_1: "Company",
+                fL4_2: "Careers",
+                fL4_3: "Newsroom",
+                fL4_4: "Blog",
+                fHead5: "Support",
+                fL5_1: "Passengers",
+                fL5_2: "Drivers",
+                fL5_3: "App issues",
+                fLegal: "Legal Documents",
+                fPrivacy: "Privacy Policy",
+                mBadge: "🚀 COMING SOON",
+                mTitle: "SuperFast App is launching soon!",
+                mDesc: "We are crafting the ultimate ride-hailing experience with zero commission surge and fair fare negotiation. Get ready to experience ultra-fast rides!",
+                mBtn: "Got It!",
+                lmHeading: "Country and language",
+                lmSaveBtn: "Save",
+                langCodeText: "En"
+            },
+            hi: {
+                getApp: "ऐप प्राप्त करें",
+                menu: "मेन्यू",
+                heroTitlePart1: "SuperFast के साथ सवारी करें और ड्राइव करें। कीमत आप ",
+                heroPrice: "तय करें!",
+                heroDownloadBtn: "ऐप डाउनलोड करें",
+                faqMainTitle: "अक्सर पूछे जाने वाले ",
+                faqMainHl: "प्रश्न",
+                faqQ1: "मैं भारत में SuperFast ऐप कैसे डाउनलोड करूं?",
+                faqA1: "आप SuperFast ऐप को Google Play Store या Apple App Store से सीधे डाउनलोड कर सकते हैं। बस \"SuperFast Rides\" खोजें और इंस्टॉल पर क्लिक करें।",
+                faqQ2: "क्या यह ऐप मुफ़्त है?",
+                faqA2: "हाँ, SuperFast यात्रियों और ड्राइवरों दोनों के लिए डाउनलोड और इंस्टॉल करने के लिए 100% मुफ़्त है।",
+                faqQ3: "क्या मैं राइड, डिलीवरी और ड्राइविंग के लिए एक ही ऐप का उपयोग कर सकता हूं?",
+                faqA3: "बिल्कुल! आप एक ही SuperFast एप्लिकेशन के अंदर पैसेंजर मोड, डिलीवरी अनुरोध और ड्राइवर मोड के बीच आसानी से स्विच कर सकते हैं।",
+                dlSectionTitle: "SuperFast ऐप डाउनलोड करें!",
+                dlPlaystoreTitle: "Google Play से डाउनलोड करें",
+                dlGetItOn: "यहाँ से प्राप्त करें",
+                fHead1: "SuperFast क्यों चुनें",
+                fL1_1: "उचित सेवाएं",
+                fL1_2: "शहर की सवारी",
+                fL1_3: "शहर से शहर की सवारी",
+                fL1_4: "डिलीवरी",
+                fHead2: "SuperFast के साथ कमाएं",
+                fL2_1: "हमारे साथ कमाएं",
+                fL2_2: "शहर की सवारी",
+                fL2_3: "शहर से शहर की सवारी",
+                fL2_4: "कुरियर",
+                fL2_5: "माल ढुलाई",
+                fHead3: "सुरक्षा",
+                fL3_1: "सुरक्षा समझौता",
+                fL3_2: "यात्रियों के लिए सुरक्षा",
+                fL3_3: "ड्राइवरों के लिए सुरक्षा",
+                fHead4: "हमारे बारे में",
+                fL4_1: "कंपनी",
+                fL4_2: "करियर",
+                fL4_3: "न्यूज़रूम",
+                fL4_4: "ब्लॉग",
+                fHead5: "सहायता",
+                fL5_1: "यात्री",
+                fL5_2: "ड्राइवर",
+                fL5_3: "ऐप की समस्याएं",
+                fLegal: "कानूनी दस्तावेज",
+                fPrivacy: "गोपनीयता नीति",
+                mBadge: "🚀 जल्द आ रहा है",
+                mTitle: "SuperFast ऐप जल्द लॉन्च हो रहा है!",
+                mDesc: "हम शून्य कमीशन सर्ज और उचित किराया बातचीत के साथ बेहतरीन राइड-हेलिंग अनुभव तैयार कर रहे हैं। अल्ट्रा-फास्ट राइड्स का अनुभव करने के लिए तैयार हो जाइए!",
+                mBtn: "समझ गया!",
+                lmHeading: "देश और भाषा",
+                lmSaveBtn: "सहेजें",
+                langCodeText: "Hi"
+            }
+        };
+
+        let currentLang = 'en';
+
+        const navbar = document.querySelector('header.navbar');
+
+        function updateNavbarOnScroll() {
+            navbar.classList.toggle('is-scrolled', window.scrollY > 8);
+        }
+
+        window.addEventListener('scroll', updateNavbarOnScroll, { passive: true });
+        updateNavbarOnScroll();
+
+        function openLangModal() {
+            document.getElementById('langSelect').value = currentLang;
+            document.getElementById('langModal').style.display = 'flex';
+        }
+
+        function saveLanguageSelection() {
+            const selectedLang = document.getElementById('langSelect').value;
+            currentLang = selectedLang;
+            updatePageLanguage(selectedLang);
+            closeModal('langModal');
+        }
+
+        function updatePageLanguage(lang) {
+            const t = translations[lang];
+
+            document.getElementById('current-lang-code').innerText = t.langCodeText;
+            document.getElementById('btn-get-app').innerText = t.getApp;
+            document.getElementById('btn-menu-txt').innerText = t.menu;
+
+            // Hero Section
+            document.getElementById('hero-title').childNodes[0].nodeValue = t.heroTitlePart1;
+            document.getElementById('hero-price').innerText = t.heroPrice;
+            document.getElementById('hero-btn-download').innerText = t.heroDownloadBtn;
+
+            // FAQ Section
+            document.getElementById('faq-main-title').childNodes[0].nodeValue = t.faqMainTitle;
+            document.getElementById('faq-main-hl').innerText = t.faqMainHl;
+            document.getElementById('faq-q1').innerText = t.faqQ1;
+            document.getElementById('faq-a1').innerText = t.faqA1;
+            document.getElementById('faq-q2').innerText = t.faqQ2;
+            document.getElementById('faq-a2').innerText = t.faqA2;
+            document.getElementById('faq-q3').innerText = t.faqQ3;
+            document.getElementById('faq-a3').innerText = t.faqA3;
+
+            // Download Section
+            document.getElementById('dl-section-title').childNodes[0].nodeValue = t.dlSectionTitle.replace('SuperFast app!', '');
+            document.getElementById('dl-playstore-title').innerText = t.dlPlaystoreTitle;
+            document.getElementById('dl-get-it-on').innerText = t.dlGetItOn;
+
+            // Footer Section
+            document.getElementById('f-head-1').innerText = t.fHead1;
+            document.getElementById('f-l1-1').innerText = t.fL1_1;
+            document.getElementById('f-l1-2').innerText = t.fL1_2;
+            document.getElementById('f-l1-3').innerText = t.fL1_3;
+            document.getElementById('f-l1-4').innerText = t.fL1_4;
+
+            document.getElementById('f-head-2').innerText = t.fHead2;
+            document.getElementById('f-l2-1').innerText = t.fL2_1;
+            document.getElementById('f-l2-2').innerText = t.fL2_2;
+            document.getElementById('f-l2-3').innerText = t.fL2_3;
+            document.getElementById('f-l2-4').innerText = t.fL2_4;
+            document.getElementById('f-l2-5').innerText = t.fL2_5;
+
+            document.getElementById('f-head-3').innerText = t.fHead3;
+            document.getElementById('f-l3-1').innerText = t.fL3_1;
+            document.getElementById('f-l3-2').innerText = t.fL3_2;
+            document.getElementById('f-l3-3').innerText = t.fL3_3;
+
+            document.getElementById('f-head-4').innerText = t.fHead4;
+            document.getElementById('f-l4-1').innerText = t.fL4_1;
+            document.getElementById('f-l4-2').innerText = t.fL4_2;
+            document.getElementById('f-l4-3').innerText = t.fL4_3;
+            document.getElementById('f-l4-4').innerText = t.fL4_4;
+
+            document.getElementById('f-head-5').innerText = t.fHead5;
+            document.getElementById('f-l5-1').innerText = t.fL5_1;
+            document.getElementById('f-l5-2').innerText = t.fL5_2;
+            document.getElementById('f-l5-3').innerText = t.fL5_3;
+
+            document.getElementById('f-legal').innerText = t.fLegal;
+            document.getElementById('f-privacy').innerText = t.fPrivacy;
+
+            // Modals Text
+            document.getElementById('m-badge').innerText = t.mBadge;
+            document.getElementById('m-title').innerText = t.mTitle;
+            document.getElementById('m-desc').innerText = t.mDesc;
+            document.getElementById('m-btn').innerText = t.mBtn;
+            document.getElementById('lm-heading').innerText = t.lmHeading;
+            document.getElementById('lm-save-btn').innerText = t.lmSaveBtn;
+        }
+
+        function triggerDownloadModal(sourceName) {
+            console.log('Download triggered via: ' + sourceName);
+            document.getElementById('downloadModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function toggleFaq(element) {
+            element.classList.toggle('active');
+        }
+
+        function navigateTo(pageKey) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const viewport = document.getElementById('app-viewport');
+
+            if (pageKey === 'home') {
+                location.reload();
+                return;
+            }
+
+            const formattedTitle = pageKey.replace(/-/g, ' ').toUpperCase();
+
+            viewport.innerHTML = `
+                <section style="max-width: 900px; margin: 80px auto; padding: 0 24px; text-align: center; min-height: 55vh;">
+                    <span class="faq-badge">SuperFast Portal</span>
+                    <h1 class="section-title" style="margin-top: 10px;">${formattedTitle}</h1>
+                    <p style="font-size: 18px; color: #555; margin-bottom: 32px; line-height: 1.6;">
+                        Welcome to the official <strong>${formattedTitle}</strong> portal. Here you can manage your SuperFast services, view guidelines, and access customized features.
+                    </p>
+                    <button class="btn-lime" onclick="navigateTo('home')">← Back to Homepage</button>
+                </section>
+            `;
+        }
+    </script>
+</body>
+</html>
