@@ -38,6 +38,7 @@
             color: var(--dark-black);
             line-height: 1.5;
             overflow-x: hidden;
+            transition: background-color 1.2s ease;
         }
 
         /* ==========================================================================
@@ -137,6 +138,20 @@
             background: #f0f0f0;
         }
 
+        .mobile-menu-toggle {
+            display: none;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            color: var(--dark-black);
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
         /* ==========================================================================
            3. HERO SECTION
            ========================================================================== */
@@ -170,6 +185,41 @@
             border-radius: var(--radius-lg);
             object-fit: cover;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .hero-image-slider {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            background: #e6e4d5;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .hero-image-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: heroImageSlide 25s infinite;
+            will-change: opacity;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+        .hero-image-slide:nth-child(1) { animation-delay: 0s; }
+        .hero-image-slide:nth-child(2) { animation-delay: 5s; }
+        .hero-image-slide:nth-child(3) { animation-delay: 10s; }
+        .hero-image-slide:nth-child(4) { animation-delay: 15s; }
+        .hero-image-slide:nth-child(5) { animation-delay: 20s; }
+
+        @keyframes heroImageSlide {
+            0%, 16% { opacity: 1; }
+            20%, 96% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         /* ==========================================================================
@@ -535,6 +585,7 @@
             header.navbar {
                 padding: 14px 16px;
                 gap: 12px;
+                position: sticky;
             }
 
             .brand-logo-container {
@@ -554,13 +605,38 @@
             }
 
             .nav-right {
-                gap: 6px;
-                min-width: 0;
+                position: absolute;
+                top: calc(100% + 8px);
+                right: 16px;
+                width: min(250px, calc(100vw - 32px));
+                padding: 12px;
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+                background: #ffffff;
+                border: 1px solid #e6e6e6;
+                border-radius: 18px;
+                box-shadow: 0 16px 35px rgba(17, 17, 17, 0.14);
+            }
+
+            .nav-right.mobile-menu-open {
+                display: flex;
             }
 
             .nav-right .btn-lime {
                 padding: 10px 12px;
                 font-size: 12px;
+                white-space: nowrap;
+            }
+
+            #btn-get-app {
+                max-width: none;
+            }
+
+            .partner-link {
+                max-width: none;
+                text-align: center;
                 white-space: nowrap;
             }
 
@@ -572,8 +648,20 @@
                 white-space: nowrap;
             }
 
+            .nav-right .lang-selector,
+            .nav-right .partner-link,
+            .nav-right #btn-get-app {
+                width: 100%;
+                justify-content: center;
+            }
+
             .menu-btn span {
                 display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: inline-flex;
+                margin-left: auto;
             }
 
             .hero {
@@ -629,6 +717,7 @@
                 font-size: 17px;
                 line-height: 1.35;
                 letter-spacing: -0.25px;
+                overflow-wrap: anywhere;
             }
 
             .faq-icon-btn {
@@ -645,6 +734,10 @@
                 padding: 24px 18px 12px;
                 gap: 18px;
                 border-radius: 18px;
+            }
+
+            .app-card > div:first-child {
+                min-width: 0;
             }
 
             .app-info-header {
@@ -732,6 +825,11 @@
                 padding-inline: 9px;
             }
 
+            #btn-get-app,
+            .partner-link {
+                font-size: 11px;
+            }
+
             .lang-selector {
                 padding-inline: 8px;
             }
@@ -753,6 +851,10 @@
             <span class="brand-name-text">SuperFast</span>
         </a>
 
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
         <div class="nav-right">
             <button class="btn-lime" id="btn-get-app" onclick="triggerDownloadModal('Header Get App')">Get the App</button>
 
@@ -762,9 +864,7 @@
                 <span id="current-lang-code">En</span>
             </div>
 
-            <button class="menu-btn" onclick="navigateTo('menu')">
-                <i class="fa-solid fa-bars"></i> <span id="btn-menu-txt">Menu</span>
-            </button>
+            <a class="btn-lime partner-link" href="driver.html">SuperFast-partner</a>
         </div>
     </header>
 
@@ -777,8 +877,12 @@
                 <h1 class="hero-title" id="hero-title">Ride and drive with SuperFast. You set the <span class="highlight-box" id="hero-price">price!</span></h1>
                 <button class="btn-lime" id="hero-btn-download" style="font-size: 18px; padding: 16px 36px;" onclick="triggerDownloadModal('Hero Download Button')">Download the app</button>
             </div>
-            <div>
-                <img src="https://static.vecteezy.com/system/resources/thumbnails/027/160/008/small_2x/generative-ai-motorcycle-rider-on-street-riding-sunset-sky-having-fun-driving-the-empty-highway-on-a-motorcycle-tour-journey-photo.jpg" alt="SuperFast Bike Driver" class="hero-banner-img">
+            <div class="hero-image-slider">
+                <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=75" alt="Splendor" class="hero-image-slide">
+                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=75" alt="Thar" class="hero-image-slide" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1200&q=75" alt="Scorpio" class="hero-image-slide" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=75" alt="Alto" class="hero-image-slide" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1502744688674-c619d1586c9e?auto=format&fit=crop&w=1200&q=75" alt="Mahindra" class="hero-image-slide" loading="lazy">
             </div>
         </section>
 
@@ -866,19 +970,19 @@
             <div class="footer-col">
                 <h4 id="f-head-1">Why choose SuperFast</h4>
                 <ul>
-                    <li><a href="#" id="f-l1-1" onclick="navigateTo('fair-services')">Fair services</a></li>
-                    <li><a href="#" id="f-l1-2" onclick="navigateTo('city-rides')">City rides</a></li>
-                    <li><a href="#" id="f-l1-3" onclick="navigateTo('city-to-city')">City to City rides</a></li>
-                    <li><a href="#" id="f-l1-4" onclick="navigateTo('delivery')">Delivery</a></li>
+                    <li><a href="driver.html" id="f-l1-1" onclick="navigateTo('fair-services')">Fair services</a></li>
+                    <li><a href="driver.html" id="f-l1-2" onclick="navigateTo('city-rides')">City rides</a></li>
+                    <li><a href="driver.html" id="f-l1-3" onclick="navigateTo('city-to-city')">City to City rides</a></li>
+                    <li><a href="driver.html" id="f-l1-4" onclick="navigateTo('delivery')">Delivery</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h4 id="f-head-2">Earn with SuperFast</h4>
                 <ul>
-                    <li><a href="#" id="f-l2-1" onclick="navigateTo('earn-with-us')">Earn with us</a></li>
-                    <li><a href="#" id="f-l2-2" onclick="navigateTo('driver-city')">City rides</a></li>
-                    <li><a href="#" id="f-l2-3" onclick="navigateTo('driver-intercity')">City to City rides</a></li>
+                    <li><a href="driver.html" id="f-l2-1" onclick="navigateTo('earn-with-us')">Earn with us</a></li>
+                    <li><a href="driver.html" id="f-l2-2" onclick="navigateTo('driver-city')">City rides</a></li>
+                    <li><a href="driver.html" id="f-l2-3" onclick="navigateTo('driver-intercity')">City to City rides</a></li>
                     <li><a href="#" id="f-l2-4" onclick="navigateTo('courier')">Courier</a></li>
                     <li><a href="#" id="f-l2-5" onclick="navigateTo('freight')">Freight</a></li>
                 </ul>
@@ -906,15 +1010,15 @@
             <div class="footer-col">
                 <h4 id="f-head-5">Support</h4>
                 <ul>
-                    <li><a href="#" id="f-l5-1" onclick="navigateTo('support-passengers')">Passengers</a></li>
-                    <li><a href="#" id="f-l5-2" onclick="navigateTo('support-drivers')">Drivers</a></li>
+                    <li><a href="driver.html" id="f-l5-1" onclick="navigateTo('support-passengers')">Passengers</a></li>
+                    <li><a href="driver.html" id="f-l5-2" onclick="navigateTo('support-drivers')">Drivers</a></li>
                     <li><a href="#" id="f-l5-3" onclick="navigateTo('support-app')">App issues</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <div>&copy; SUPERFAST INNOVATIONS LTD, 2013–2026</div>
+            <div>&copy; SUPERFAST INNOVATIONS LTD, 2026–2035</div>
             <div style="display: flex; gap: 24px;">
                 <a href="#" id="f-legal" onclick="navigateTo('legal')" style="color:#555; text-decoration:none;">Legal Documents</a>
                 <a href="#" id="f-privacy" onclick="navigateTo('privacy')" style="color:#555; text-decoration:none;">Privacy Policy</a>
@@ -1073,6 +1177,16 @@
 
         let currentLang = 'en';
 
+        const backgroundColors = ['#fbf9eb', '#eef7d5', '#e9f4f7', '#fff0df'];
+        let backgroundColorIndex = 0;
+
+        function changeBackgroundColor() {
+            backgroundColorIndex = (backgroundColorIndex + 1) % backgroundColors.length;
+            document.body.style.setProperty('--bg-cream', backgroundColors[backgroundColorIndex]);
+        }
+
+        setInterval(changeBackgroundColor, 5000);
+
         const navbar = document.querySelector('header.navbar');
 
         function updateNavbarOnScroll() {
@@ -1099,7 +1213,6 @@
 
             document.getElementById('current-lang-code').innerText = t.langCodeText;
             document.getElementById('btn-get-app').innerText = t.getApp;
-            document.getElementById('btn-menu-txt').innerText = t.menu;
 
             // Hero Section
             document.getElementById('hero-title').childNodes[0].nodeValue = t.heroTitlePart1;
@@ -1165,7 +1278,29 @@
 
         function triggerDownloadModal(sourceName) {
             console.log('Download triggered via: ' + sourceName);
+            closeMobileMenu();
             document.getElementById('downloadModal').style.display = 'flex';
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.nav-right');
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const isOpen = menu.classList.toggle('mobile-menu-open');
+
+            toggle.setAttribute('aria-expanded', String(isOpen));
+            toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+            toggle.innerHTML = `<i class="fa-solid ${isOpen ? 'fa-xmark' : 'fa-bars'}"></i>`;
+        }
+
+        function closeMobileMenu() {
+            const menu = document.querySelector('.nav-right');
+            const toggle = document.getElementById('mobile-menu-toggle');
+
+            if (!menu || !toggle) return;
+            menu.classList.remove('mobile-menu-open');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Open menu');
+            toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
         }
 
         function closeModal(modalId) {
@@ -1194,7 +1329,6 @@
                     <p style="font-size: 18px; color: #555; margin-bottom: 32px; line-height: 1.6;">
                         Welcome to the official <strong>${formattedTitle}</strong> portal. Here you can manage your SuperFast services, view guidelines, and access customized features.
                     </p>
-                    <button class="btn-lime" onclick="navigateTo('home')">← Back to Homepage</button>
                 </section>
             `;
         }
