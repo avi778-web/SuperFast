@@ -410,6 +410,53 @@
             text-decoration: underline;
         }
 
+        .support-youtube-card {
+            position: relative;
+            display: block;
+            aspect-ratio: 16 / 9;
+            padding: 0;
+            margin-top: 18px;
+            background: #111111;
+            color: #ffffff !important;
+            border-radius: 12px;
+            text-decoration: none !important;
+            overflow: hidden;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .support-youtube-card:hover {
+            background: #d90000;
+            transform: translateY(-2px);
+        }
+
+        .support-youtube-card img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .support-youtube-label {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            left: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 8px;
+            background: rgba(0, 0, 0, 0.82);
+            border-radius: 7px;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .support-content {
+            display: block;
+        }
+
         .footer-bottom {
             max-width: 1280px;
             margin: 0 auto;
@@ -747,7 +794,7 @@
             }
 
             .anime-wrapper {
-                height: 250px;
+                display: none;
             }
 
             footer.footer-container {
@@ -771,6 +818,22 @@
 
             .footer-col ul li a {
                 font-size: 12px;
+            }
+
+            .footer-col:last-child {
+                grid-column: 2;
+                min-width: 0;
+            }
+
+            .support-youtube-card {
+                margin-top: 0;
+            }
+
+            .support-content {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                gap: 10px;
+                align-items: start;
             }
 
             .footer-bottom {
@@ -991,11 +1054,17 @@
 
             <div class="footer-col">
                 <h4 id="f-head-5">Support</h4>
-                <ul>
-                    <li><a href="driver.html" id="f-l5-1" onclick="navigateTo('support-passengers')">Passengers</a></li>
-                    <li><a href="driver.html" id="f-l5-2" onclick="navigateTo('support-drivers')">Drivers</a></li>
-                    <li><a href="#" id="f-l5-3" onclick="navigateTo('support-app')">App issues</a></li>
-                </ul>
+                <div class="support-content">
+                    <ul>
+                        <li><a href="driver.html" id="f-l5-1" onclick="navigateTo('support-passengers')">Passengers</a></li>
+                        <li><a href="driver.html" id="f-l5-2" onclick="navigateTo('support-drivers')">Drivers</a></li>
+                        <li><a href="#" id="f-l5-3" onclick="navigateTo('support-app')">App issues</a></li>
+                    </ul>
+                    <a class="support-youtube-card" href="https://youtu.be/SIsGR0-SQf0?list=RDSIsGR0-SQf0" target="_blank" rel="noopener noreferrer">
+                        <img src="https://img.youtube.com/vi/SIsGR0-SQf0/hqdefault.jpg" alt="SuperFast app video thumbnail">
+                        <span class="support-youtube-label"><i class="fa-brands fa-youtube"></i> Watch app video</span>
+                    </a>
+                </div>
             </div>
         </div>
 
