@@ -203,23 +203,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0;
-            animation: heroImageSlide 25s infinite;
-            will-change: opacity;
+            opacity: 1;
             backface-visibility: hidden;
             transform: translateZ(0);
-        }
-
-        .hero-image-slide:nth-child(1) { animation-delay: 0s; }
-        .hero-image-slide:nth-child(2) { animation-delay: 5s; }
-        .hero-image-slide:nth-child(3) { animation-delay: 10s; }
-        .hero-image-slide:nth-child(4) { animation-delay: 15s; }
-        .hero-image-slide:nth-child(5) { animation-delay: 20s; }
-
-        @keyframes heroImageSlide {
-            0%, 16% { opacity: 1; }
-            20%, 96% { opacity: 0; }
-            100% { opacity: 1; }
         }
 
         /* ==========================================================================
@@ -879,10 +865,6 @@
             </div>
             <div class="hero-image-slider">
                 <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=75" alt="Splendor" class="hero-image-slide">
-                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=75" alt="Thar" class="hero-image-slide" loading="lazy">
-                <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1200&q=75" alt="Scorpio" class="hero-image-slide" loading="lazy">
-                <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=75" alt="Alto" class="hero-image-slide" loading="lazy">
-                <img src="https://images.unsplash.com/photo-1502744688674-c619d1586c9e?auto=format&fit=crop&w=1200&q=75" alt="Mahindra" class="hero-image-slide" loading="lazy">
             </div>
         </section>
 
@@ -1176,16 +1158,6 @@
         };
 
         let currentLang = 'en';
-
-        const backgroundColors = ['#fbf9eb', '#eef7d5', '#e9f4f7', '#fff0df'];
-        let backgroundColorIndex = 0;
-
-        function changeBackgroundColor() {
-            backgroundColorIndex = (backgroundColorIndex + 1) % backgroundColors.length;
-            document.body.style.setProperty('--bg-cream', backgroundColors[backgroundColorIndex]);
-        }
-
-        setInterval(changeBackgroundColor, 5000);
 
         const navbar = document.querySelector('header.navbar');
 
