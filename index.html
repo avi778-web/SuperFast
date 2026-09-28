@@ -667,12 +667,6 @@
                 max-width: none;
             }
 
-            .partner-link {
-                max-width: none;
-                text-align: center;
-                white-space: nowrap;
-            }
-
             .lang-selector,
             .menu-btn {
                 padding: 9px 10px;
@@ -682,7 +676,6 @@
             }
 
             .nav-right .lang-selector,
-            .nav-right .partner-link,
             .nav-right #btn-get-app {
                 width: 100%;
                 justify-content: center;
@@ -867,15 +860,20 @@
 
         @media (max-width: 380px) {
             .brand-name-text {
-                display: none;
+                display: inline;
+                font-size: 18px;
+                letter-spacing: -0.5px;
+            }
+
+            .brand-logo-container {
+                gap: 6px;
             }
 
             .nav-right .btn-lime {
                 padding-inline: 9px;
             }
 
-            #btn-get-app,
-            .partner-link {
+            #btn-get-app {
                 font-size: 11px;
             }
 
@@ -913,7 +911,6 @@
                 <span id="current-lang-code">En</span>
             </div>
 
-            <a class="btn-lime partner-link" href="driver.html">SuperFast-partner</a>
         </div>
     </header>
 
