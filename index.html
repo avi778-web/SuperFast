@@ -121,6 +121,13 @@
             box-shadow: 0 4px 15px rgba(187, 247, 5, 0.4);
         }
 
+        #btn-get-app {
+            min-width: 136px;
+            flex: 0 0 auto;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
         .lang-selector, .menu-btn {
             background: #ffffff;
             border: 1px solid #e0e0e0;
@@ -664,7 +671,10 @@
             }
 
             #btn-get-app {
+                min-width: 120px;
                 max-width: none;
+                padding: 10px 12px;
+                font-size: 12px;
             }
 
             .lang-selector,
@@ -675,10 +685,14 @@
                 white-space: nowrap;
             }
 
-            .nav-right .lang-selector,
-            .nav-right #btn-get-app {
+            .nav-right .lang-selector {
                 width: 100%;
                 justify-content: center;
+            }
+
+            .nav-right #btn-get-app {
+                width: auto;
+                align-self: flex-end;
             }
 
             .menu-btn span {
@@ -874,6 +888,8 @@
             }
 
             #btn-get-app {
+                min-width: 104px;
+                padding-inline: 8px;
                 font-size: 11px;
             }
 
@@ -903,14 +919,13 @@
         </button>
 
         <div class="nav-right">
-            <button class="btn-lime" id="btn-get-app" onclick="triggerDownloadModal('Header Get App')">Get the App</button>
-
             <!-- Country & Language Selector Button -->
             <div class="lang-selector" onclick="openLangModal()">
                 <img src="https://flagcdn.com/w20/in.png" alt="India Flag"> 
                 <span id="current-lang-code">En</span>
             </div>
 
+            <button class="btn-lime" id="btn-get-app" onclick="triggerDownloadModal('Header Get App')">Get the App</button>
         </div>
     </header>
 
@@ -1171,7 +1186,7 @@
                 langCodeText: "En"
             },
             hi: {
-                getApp: "ऐप प्राप्त करें",
+                getApp: "ऐप पाएं",
                 menu: "मेन्यू",
                 heroTitlePart1: "SuperFast के साथ सवारी करें और ड्राइव करें। कीमत आप ",
                 heroPrice: "तय करें!",
