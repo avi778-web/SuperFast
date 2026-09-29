@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="supabase-public-config.js"></script>
+    <script src="supabase-public-config.js"></script>
     
     <style>
         /* ==========================================================================
@@ -533,6 +535,201 @@
             letter-spacing: 0.5px;
         }
 
+        .cookie-consent-banner {
+            position: fixed;
+            z-index: 1100;
+            right: 24px;
+            bottom: 24px;
+            left: 24px;
+            max-width: 760px;
+            max-height: min(90vh, 760px);
+            max-height: min(90dvh, 760px);
+            margin: 0 auto;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 24px;
+            background: #ffffff;
+            border: 1px solid #e4e4dc;
+            border-top: 4px solid var(--lime-green);
+            border-radius: 18px;
+            box-shadow: 0 18px 60px rgba(17, 17, 17, 0.2);
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        .cookie-consent-backdrop {
+            position: fixed;
+            z-index: 1090;
+            inset: 0;
+            background: rgba(17, 17, 17, 0.36);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .cookie-consent-banner[hidden],
+        .cookie-consent-backdrop[hidden],
+        .cookie-modal-overlay[hidden] {
+            display: none;
+        }
+
+        .cookie-banner-copy h2,
+        .cookie-modal-box h2 {
+            color: var(--dark-black);
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .cookie-banner-copy p,
+        .cookie-modal-intro {
+            margin-top: 8px;
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        .cookie-policy-link,
+        .cookie-policy-details a,
+        #cookie-settings-link {
+            color: #385600;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .cookie-banner-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .cookie-action-secondary {
+            min-height: 42px;
+            padding: 9px 13px;
+            border: 1px solid #d8d8ce;
+            border-radius: 22px;
+            background: #ffffff;
+            color: var(--dark-black);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .cookie-action-secondary:hover {
+            background: #f6f6ef;
+        }
+
+        .cookie-action-secondary:focus-visible,
+        .cookie-banner-actions .btn-lime:focus-visible {
+            outline: 3px solid #6d9200;
+            outline-offset: 2px;
+        }
+
+        .cookie-modal-overlay {
+            z-index: 1200;
+        }
+
+        .cookie-modal-overlay:not([hidden]) {
+            display: flex;
+        }
+
+        .cookie-modal-box {
+            width: min(620px, calc(100vw - 32px));
+            max-height: min(88vh, 760px);
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .cookie-modal-box h2 {
+            padding-right: 28px;
+        }
+
+        .cookie-category-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .cookie-category {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 14px 16px;
+            border: 1px solid #e6e6df;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .cookie-category-copy strong {
+            display: block;
+            font-size: 14px;
+        }
+
+        .cookie-category-copy span {
+            display: block;
+            margin-top: 3px;
+            color: #666;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .cookie-category input {
+            width: 19px;
+            height: 19px;
+            flex: 0 0 auto;
+            accent-color: #6d9200;
+        }
+
+        .cookie-category input:disabled {
+            cursor: not-allowed;
+        }
+
+        .cookie-policy-details {
+            margin-top: 16px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: #f7f7f2;
+            color: #555;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .cookie-policy-details summary {
+            color: var(--dark-black);
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .cookie-policy-details p {
+            margin-top: 10px;
+        }
+
+        .cookie-policy-details h3 {
+            margin-top: 14px;
+            color: var(--dark-black);
+            font-size: 13px;
+        }
+
+        .cookie-policy-details ul {
+            margin: 8px 0 0 20px;
+        }
+
+        .cookie-modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .cookie-modal-actions .cookie-save-button {
+            grid-column: 1 / -1;
+            width: 100%;
+        }
+
         /* Country & Language Modal Specific Styles */
         .lang-modal-box {
             text-align: left;
@@ -871,6 +1068,41 @@
             .lang-modal-box {
                 padding: 28px 20px 22px;
             }
+
+            .cookie-consent-banner {
+                right: 12px;
+                bottom: 12px;
+                left: 12px;
+                max-height: calc(100vh - 24px);
+                max-height: calc(100dvh - 24px);
+                padding: 18px;
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .cookie-banner-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .cookie-banner-actions .cookie-action-primary {
+                grid-column: auto;
+                grid-row: auto;
+            }
+
+            .cookie-modal-box {
+                width: calc(100% - 24px);
+                max-height: calc(100vh - 24px);
+                padding: 32px 18px 20px;
+            }
+
+            .cookie-modal-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .cookie-modal-actions .cookie-save-button {
+                grid-column: auto;
+            }
         }
 
         @media (max-width: 380px) {
@@ -900,6 +1132,15 @@
 
             .hero-title {
                 font-size: 32px;
+            }
+
+            .cookie-banner-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .cookie-banner-actions .cookie-action-primary {
+                grid-column: auto;
+                grid-row: auto;
             }
         }
     </style>
@@ -1086,6 +1327,7 @@
             <div style="display: flex; gap: 24px;">
                 <a href="#" id="f-legal" onclick="navigateTo('legal')" style="color:#555; text-decoration:none;">Legal Documents</a>
                 <a href="#" id="f-privacy" onclick="navigateTo('privacy')" style="color:#555; text-decoration:none;">Privacy Policy</a>
+                <a href="#" id="cookie-settings-link" onclick="openCookiePreferences(); return false;">Cookie settings</a>
             </div>
         </div>
     </footer>
@@ -1131,12 +1373,100 @@
         </div>
     </div>
 
+    <div class="cookie-consent-backdrop" id="cookieBackdrop" hidden></div>
+    <section class="cookie-consent-banner" id="cookieBanner" role="dialog" aria-modal="true" aria-labelledby="cookie-banner-title" hidden>
+        <div class="cookie-banner-copy">
+            <h2 id="cookie-banner-title">Your cookie choices</h2>
+            <p id="cookie-banner-body">Essential cookies keep this site working. Performance consent allows anonymous page-view, time-on-page, and app-button click counts.</p>
+            <p><a class="cookie-policy-link" id="cookie-policy-link" href="#cookie-policy-details" onclick="openCookiePolicy(); return false;">Cookie policy</a> · <a href="mailto:theavipalofficial@gmail.com">theavipalofficial@gmail.com</a></p>
+        </div>
+        <div class="cookie-banner-actions">
+            <button class="btn-lime cookie-action-primary" id="cookie-accept-all" type="button" onclick="acceptAllCookies()">Accept all</button>
+            <button class="cookie-action-secondary" id="cookie-reject-optional" type="button" onclick="rejectOptionalCookies()">Reject optional</button>
+        </div>
+    </section>
+
+    <div class="modal-overlay cookie-modal-overlay" id="cookieModal" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title" hidden>
+        <section class="modal-box cookie-modal-box">
+            <button class="modal-close" type="button" aria-label="Close cookie preferences" onclick="closeCookiePreferences()">&times;</button>
+            <h2 id="cookie-modal-title">Cookie preferences</h2>
+            <p class="cookie-modal-intro" id="cookie-modal-intro">Essential cookies are always on. Optional categories stay off unless you choose them.</p>
+
+            <div class="cookie-category-list">
+                <label class="cookie-category" for="cookie-essential">
+                    <span class="cookie-category-copy"><strong id="cookie-essential-label">Essential</strong><span id="cookie-essential-description">Required for core site functions, security, and remembering this consent.</span></span>
+                    <input id="cookie-essential" type="checkbox" checked disabled>
+                </label>
+                <label class="cookie-category" for="cookie-performance">
+                    <span class="cookie-category-copy"><strong id="cookie-performance-label">Performance</strong><span id="cookie-performance-description">Helps measure traffic and improve the site. Analytics are not active on this page.</span></span>
+                    <input id="cookie-performance" type="checkbox">
+                </label>
+                <label class="cookie-category" for="cookie-functional">
+                    <span class="cookie-category-copy"><strong id="cookie-functional-label">Functional</strong><span id="cookie-functional-description">Remembers choices such as language and display preferences.</span></span>
+                    <input id="cookie-functional" type="checkbox">
+                </label>
+                <label class="cookie-category" for="cookie-advertising">
+                    <span class="cookie-category-copy"><strong id="cookie-advertising-label">Advertising</strong><span id="cookie-advertising-description">Used for relevant ads and campaign measurement. Advertising tools are not active on this page.</span></span>
+                    <input id="cookie-advertising" type="checkbox">
+                </label>
+            </div>
+
+            <details class="cookie-policy-details" id="cookie-policy-details">
+                <summary id="cookie-policy-summary">Read cookie policy</summary>
+                <p><strong>Last updated:</strong> September 29, 2026.</p>
+                <h3>1. What are Cookies?</h3>
+                <p>Cookies are small text files stored on your device when you visit a website. They help essential features work and can remember preferences.</p>
+                <h3>2. Why We Use Cookies</h3>
+                <ul>
+                    <li><strong>Essential:</strong> Required for basic website functions and security.</li>
+                    <li><strong>Performance:</strong> With your permission, records anonymous page views, time spent, app-button clicks, and a browser-provided device model when available. Otherwise it records a broad category. It cannot read a custom nickname; names, emails, and IP addresses are not stored.</li>
+                    <li><strong>Functional:</strong> Can remember preferences such as language or login status.</li>
+                    <li><strong>Advertising:</strong> May deliver relevant ads and measure campaigns. Advertising tools are not active on this page.</li>
+                </ul>
+                <h3>3. Third-Party Cookies</h3>
+                <p>Trusted third-party services may set their own cookies when enabled. Review their policies before using those services.</p>
+                <h3>4. Managing Cookies</h3>
+                <p>Change your choices here or control cookies through your browser settings. Disabling some cookies may affect website functionality.</p>
+                <h3>5. Contact Us</h3>
+                <p>For questions about this Cookie Policy, contact <a href="mailto:theavipalofficial@gmail.com">theavipalofficial@gmail.com</a>.</p>
+            </details>
+
+            <div class="cookie-modal-actions">
+                <button class="cookie-action-secondary" id="cookie-modal-reject" type="button" onclick="rejectOptionalCookies()">Reject optional</button>
+                <button class="btn-lime" id="cookie-modal-accept" type="button" onclick="acceptAllCookies()">Accept all</button>
+                <button class="btn-lime cookie-save-button" id="cookie-save" type="button" onclick="saveCookiePreferences()">Save my choices</button>
+            </div>
+        </section>
+    </div>
+
     <!-- JAVASCRIPT & TRANSLATIONS LOGIC -->
     <script>
         // Language Dictionary
         const translations = {
             en: {
                 getApp: "Get the App",
+                cookieSettings: "Cookie settings",
+                cookieBannerTitle: "Your cookie choices",
+                cookieBannerBody: "Essential cookies keep this site working. Performance consent allows anonymous page views, time-on-page, app-button clicks, and the device model when the browser provides it.",
+                cookiePolicyLink: "Cookie policy",
+                cookieAcceptAll: "Accept all",
+                cookieRejectOptional: "Reject optional",
+                cookieModalTitle: "Cookie preferences",
+                cookieModalIntro: "Essential cookies are always on. Optional categories stay off unless you choose them.",
+                cookieEssential: "Essential",
+                cookieEssentialDescription: "Required for core site functions, security, and remembering this consent.",
+                cookiePerformance: "Performance",
+                cookiePerformanceDescription: "With consent, records page views, time, app clicks, and a browser-provided device model; otherwise a broad category. No custom nickname, names, emails, or IPs.",
+                cookieFunctional: "Functional",
+                cookieFunctionalDescription: "Remembers choices such as language and display preferences.",
+                cookieAdvertising: "Advertising",
+                cookieAdvertisingDescription: "Used for relevant ads and campaign measurement. Advertising tools are not active on this page.",
+                cookiePolicySummary: "Read cookie policy",
+                cookiePolicyWhat: "Cookies are small text files stored on your device to support site functions and preferences.",
+                cookiePolicyThirdParty: "Trusted third-party services may set their own cookies when enabled. Review their policies before using them.",
+                cookiePolicyManage: "You can manage preferences here or disable cookies through your browser settings; some functions may be affected.",
+                cookiePolicyContact: "Questions? Contact us at",
+                cookieSave: "Save my choices",
                 menu: "Menu",
                 heroTitlePart1: "Ride and drive with SuperFast. You set the ",
                 heroPrice: "price!",
@@ -1188,6 +1518,28 @@
             },
             hi: {
                 getApp: "ऐप पाएं",
+                cookieSettings: "कुकी सेटिंग",
+                cookieBannerTitle: "कुकी विकल्प",
+                cookieBannerBody: "ज़रूरी कुकीज़ साइट चलाती हैं। अनुमति पर गुमनाम पेज-व्यू, समय, ऐप क्लिक और ब्राउज़र द्वारा दिया डिवाइस मॉडल दर्ज होगा।",
+                cookiePolicyLink: "कुकी नीति",
+                cookieAcceptAll: "सभी स्वीकारें",
+                cookieRejectOptional: "वैकल्पिक अस्वीकारें",
+                cookieModalTitle: "कुकी प्राथमिकताएं",
+                cookieModalIntro: "ज़रूरी कुकीज़ हमेशा चालू रहती हैं। आपकी अनुमति तक वैकल्पिक कुकीज़ बंद रहेंगी।",
+                cookieEssential: "ज़रूरी",
+                cookieEssentialDescription: "मुख्य सुविधाओं, सुरक्षा और आपकी सहमति याद रखने के लिए आवश्यक।",
+                cookiePerformance: "प्रदर्शन",
+                cookiePerformanceDescription: "अनुमति पर पेज-व्यू, समय, ऐप क्लिक और उपलब्ध डिवाइस मॉडल; नहीं तो सामान्य श्रेणी दर्ज होगी। कस्टम नाम, ईमेल या IP नहीं।",
+                cookieFunctional: "कार्यात्मक",
+                cookieFunctionalDescription: "भाषा और डिस्प्ले जैसी आपकी पसंद याद रखती हैं।",
+                cookieAdvertising: "विज्ञापन",
+                cookieAdvertisingDescription: "प्रासंगिक विज्ञापनों और कैंपेन मापने के लिए। इस पेज पर विज्ञापन टूल चालू नहीं हैं।",
+                cookiePolicySummary: "कुकी नीति पढ़ें",
+                cookiePolicyWhat: "कुकीज़ आपके डिवाइस पर रखी छोटी टेक्स्ट फ़ाइलें हैं, जो साइट की सुविधाओं और पसंद को संभालती हैं।",
+                cookiePolicyThirdParty: "चालू होने पर भरोसेमंद थर्ड-पार्टी सेवाएं अपनी कुकीज़ रख सकती हैं। उनकी नीतियां भी देखें।",
+                cookiePolicyManage: "यहां पसंद बदलें या ब्राउज़र सेटिंग से कुकीज़ बंद करें; कुछ सुविधाएं प्रभावित हो सकती हैं।",
+                cookiePolicyContact: "सवाल हैं? संपर्क करें",
+                cookieSave: "मेरी पसंद सहेजें",
                 menu: "मेन्यू",
                 heroTitlePart1: "SuperFast के साथ सवारी करें और ड्राइव करें। कीमत आप ",
                 heroPrice: "तय करें!",
@@ -1321,6 +1673,36 @@
             document.getElementById('f-legal').innerText = t.fLegal;
             document.getElementById('f-privacy').innerText = t.fPrivacy;
 
+            const cookieText = {
+                'cookie-settings-link': 'cookieSettings',
+                'cookie-banner-title': 'cookieBannerTitle',
+                'cookie-banner-body': 'cookieBannerBody',
+                'cookie-policy-link': 'cookiePolicyLink',
+                'cookie-accept-all': 'cookieAcceptAll',
+                'cookie-reject-optional': 'cookieRejectOptional',
+                'cookie-modal-title': 'cookieModalTitle',
+                'cookie-modal-intro': 'cookieModalIntro',
+                'cookie-essential-label': 'cookieEssential',
+                'cookie-essential-description': 'cookieEssentialDescription',
+                'cookie-performance-label': 'cookiePerformance',
+                'cookie-performance-description': 'cookiePerformanceDescription',
+                'cookie-functional-label': 'cookieFunctional',
+                'cookie-functional-description': 'cookieFunctionalDescription',
+                'cookie-advertising-label': 'cookieAdvertising',
+                'cookie-advertising-description': 'cookieAdvertisingDescription',
+                'cookie-policy-summary': 'cookiePolicySummary',
+                'cookie-policy-what': 'cookiePolicyWhat',
+                'cookie-policy-third-party': 'cookiePolicyThirdParty',
+                'cookie-policy-manage': 'cookiePolicyManage',
+                'cookie-policy-contact': 'cookiePolicyContact',
+                'cookie-modal-reject': 'cookieRejectOptional',
+                'cookie-modal-accept': 'cookieAcceptAll',
+                'cookie-save': 'cookieSave'
+            };
+            Object.entries(cookieText).forEach(([elementId, translationKey]) => {
+                document.getElementById(elementId).innerText = t[translationKey];
+            });
+
             // Modals Text
             document.getElementById('m-badge').innerText = t.mBadge;
             document.getElementById('m-title').innerText = t.mTitle;
@@ -1332,6 +1714,7 @@
 
         function triggerDownloadModal(sourceName) {
             console.log('Download triggered via: ' + sourceName);
+            sendAnalyticsEvent('download_click', { source: sourceName });
             closeMobileMenu();
             document.getElementById('downloadModal').style.display = 'flex';
         }
@@ -1365,6 +1748,235 @@
             element.classList.toggle('active');
         }
 
+        const cookieConsentKey = 'superfast-cookie-consent-v1';
+        const analyticsVisitorKey = 'superfast-anonymous-visitor-v1';
+        let performanceAnalyticsEnabled = false;
+        let analyticsPageKey = 'home';
+        let analyticsPageStartedAt = null;
+
+        function getAnalyticsVisitorId() {
+            try {
+                let visitorId = localStorage.getItem(analyticsVisitorKey);
+                if (!visitorId) {
+                    visitorId = crypto.randomUUID();
+                    localStorage.setItem(analyticsVisitorKey, visitorId);
+                }
+                return visitorId;
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function getAnalyticsDeviceType() {
+            const userAgent = navigator.userAgent || '';
+            if (/iPad/i.test(userAgent) || (/Macintosh/i.test(userAgent) && navigator.maxTouchPoints > 1)) return 'iPad';
+            if (/iPhone|iPod/i.test(userAgent)) return 'iPhone';
+            if (/Android/i.test(userAgent)) return /Mobile/i.test(userAgent) ? 'Android phone' : 'Android tablet';
+            if (/Windows/i.test(userAgent)) return 'Windows PC';
+            if (/Macintosh|Mac OS/i.test(userAgent)) return 'Mac';
+            if (/Linux/i.test(userAgent)) return 'Linux PC';
+            return 'Other device';
+        }
+
+        let analyticsDeviceNamePromise = null;
+
+        function getAnalyticsDeviceName() {
+            if (!analyticsDeviceNamePromise) {
+                analyticsDeviceNamePromise = (async () => {
+                    const deviceType = getAnalyticsDeviceType();
+                    const userAgentData = navigator.userAgentData;
+                    if (!userAgentData || typeof userAgentData.getHighEntropyValues !== 'function') return deviceType;
+
+                    try {
+                        const deviceHints = await userAgentData.getHighEntropyValues(['model']);
+                        const model = typeof deviceHints.model === 'string'
+                            ? deviceHints.model.replace(/[^\w .()+/-]/g, ' ').replace(/\s+/g, ' ').trim()
+                            : '';
+                        if (model && model.toLowerCase() !== 'k') {
+                            return `${deviceType} - ${model}`.slice(0, 100);
+                        }
+                    } catch (error) {
+                        // Use the platform category when the browser hides its model.
+                    }
+
+                    return deviceType;
+                })();
+            }
+
+            return analyticsDeviceNamePromise;
+        }
+
+        function sendAnalyticsEvent(eventType, details = {}, useBeacon = false) {
+            if (!performanceAnalyticsEnabled) return;
+
+            const visitorId = getAnalyticsVisitorId();
+            if (!visitorId) return;
+
+            getAnalyticsDeviceName().then(deviceName => {
+                if (!performanceAnalyticsEnabled) return;
+
+                const payload = {
+                    visitor_id: visitorId,
+                    event_type: eventType,
+                    page_key: details.pageKey || analyticsPageKey,
+                    device_type: getAnalyticsDeviceType(),
+                    device_name: deviceName,
+                    source: details.source || null,
+                    duration_ms: Number.isFinite(details.durationMs) ? details.durationMs : null
+                };
+                const body = JSON.stringify(payload);
+                const supabaseConfig = window.SUPERFAST_SUPABASE_CONFIG || {};
+                const supabaseUrl = typeof supabaseConfig.url === 'string' ? supabaseConfig.url.replace(/\/$/, '') : '';
+                const anonKey = typeof supabaseConfig.anonKey === 'string' ? supabaseConfig.anonKey.trim() : '';
+                const remoteConfigured = Boolean(supabaseUrl && anonKey);
+                const endpoint = remoteConfigured ? `${supabaseUrl}/functions/v1/analytics-ingest` : '/api/analytics';
+                const headers = { 'Content-Type': 'application/json' };
+
+                if (remoteConfigured) {
+                    headers.apikey = anonKey;
+                    headers.Authorization = `Bearer ${anonKey}`;
+                }
+
+                if (useBeacon && navigator.sendBeacon) {
+                    if (remoteConfigured) {
+                        fetch(endpoint, { method: 'POST', headers, body, keepalive: true }).catch(() => {});
+                    } else {
+                        navigator.sendBeacon(endpoint, new Blob([body], { type: 'application/json' }));
+                    }
+                    return;
+                }
+
+                fetch(endpoint, {
+                    method: 'POST',
+                    headers,
+                    body,
+                    keepalive: true
+                }).catch(() => {});
+            });
+        }
+
+        function startPageAnalytics(pageKey) {
+            analyticsPageKey = pageKey;
+            if (!performanceAnalyticsEnabled) return;
+
+            analyticsPageStartedAt = Date.now();
+            sendAnalyticsEvent('page_view', { pageKey });
+        }
+
+        function flushPageAnalytics(useBeacon = false) {
+            if (!performanceAnalyticsEnabled || analyticsPageStartedAt === null) return;
+
+            const durationMs = Math.max(0, Date.now() - analyticsPageStartedAt);
+            analyticsPageStartedAt = null;
+            if (durationMs > 0) {
+                sendAnalyticsEvent('page_duration', { pageKey: analyticsPageKey, durationMs }, useBeacon);
+            }
+        }
+
+        function setPerformanceAnalytics(enabled) {
+            const shouldEnable = enabled === true;
+            if (shouldEnable === performanceAnalyticsEnabled) return;
+
+            performanceAnalyticsEnabled = shouldEnable;
+            if (shouldEnable) {
+                getAnalyticsDeviceName().then(() => {
+                    if (performanceAnalyticsEnabled) startPageAnalytics(analyticsPageKey);
+                });
+            } else {
+                analyticsPageStartedAt = null;
+                analyticsDeviceNamePromise = null;
+            }
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                flushPageAnalytics(true);
+            } else if (performanceAnalyticsEnabled && analyticsPageStartedAt === null) {
+                analyticsPageStartedAt = Date.now();
+            }
+        });
+        window.addEventListener('pagehide', () => flushPageAnalytics(true));
+
+        function loadCookieConsent() {
+            try {
+                return JSON.parse(localStorage.getItem(cookieConsentKey) || 'null');
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function initializeCookieConsent() {
+            const savedConsent = loadCookieConsent();
+            const hasConsent = Boolean(savedConsent);
+            document.getElementById('cookieBanner').hidden = hasConsent;
+            document.getElementById('cookieBackdrop').hidden = hasConsent;
+            setPerformanceAnalytics(Boolean(savedConsent && savedConsent.performance));
+        }
+
+        function openCookiePreferences() {
+            const savedChoices = loadCookieConsent() || {};
+            document.getElementById('cookieBackdrop').hidden = Boolean(loadCookieConsent());
+            document.getElementById('cookie-performance').checked = savedChoices.performance === true;
+            document.getElementById('cookie-functional').checked = savedChoices.functional === true;
+            document.getElementById('cookie-advertising').checked = savedChoices.advertising === true;
+            document.getElementById('cookieBanner').hidden = true;
+            document.getElementById('cookieModal').hidden = false;
+        }
+
+        function openCookiePolicy() {
+            openCookiePreferences();
+            const policy = document.getElementById('cookie-policy-details');
+            policy.open = true;
+            requestAnimationFrame(() => policy.scrollIntoView({ block: 'nearest', behavior: 'smooth' }));
+        }
+
+        function closeCookiePreferences() {
+            document.getElementById('cookieModal').hidden = true;
+            const hasConsent = Boolean(loadCookieConsent());
+            document.getElementById('cookieBackdrop').hidden = hasConsent;
+            if (!hasConsent) {
+                document.getElementById('cookieBanner').hidden = false;
+            }
+        }
+
+        function saveCookieConsent(choices) {
+            const consent = {
+                essential: true,
+                performance: choices.performance === true,
+                functional: choices.functional === true,
+                advertising: choices.advertising === true,
+                savedAt: new Date().toISOString()
+            };
+
+            try {
+                localStorage.setItem(cookieConsentKey, JSON.stringify(consent));
+            } catch (error) {
+                // Keep this visit usable if browser storage is unavailable.
+            }
+
+            setPerformanceAnalytics(consent.performance);
+
+            document.getElementById('cookieBanner').hidden = true;
+            document.getElementById('cookieModal').hidden = true;
+            document.getElementById('cookieBackdrop').hidden = true;
+        }
+
+        function acceptAllCookies() {
+            saveCookieConsent({ performance: true, functional: true, advertising: true });
+        }
+
+        function rejectOptionalCookies() {
+            saveCookieConsent({ performance: false, functional: false, advertising: false });
+        }
+
+        function saveCookiePreferences() {
+            saveCookieConsent({
+                performance: document.getElementById('cookie-performance').checked,
+                functional: document.getElementById('cookie-functional').checked,
+                advertising: document.getElementById('cookie-advertising').checked
+            });
+        }
+
         function navigateTo(pageKey) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             const viewport = document.getElementById('app-viewport');
@@ -1373,6 +1985,9 @@
                 location.reload();
                 return;
             }
+
+            flushPageAnalytics();
+            startPageAnalytics(pageKey);
 
             const formattedTitle = pageKey.replace(/-/g, ' ').toUpperCase();
 
@@ -1386,6 +2001,8 @@
                 </section>
             `;
         }
+
+        initializeCookieConsent();
     </script>
 </body>
 </html>
